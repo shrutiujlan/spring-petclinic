@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+    //Java and Maven configurations in the Jenkins Global Tool Configuration
     tools {
         maven 'Maven'
         jdk 'JDK17'
@@ -15,14 +15,14 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Use Maven to build the project
+                // Using Maven to build the project
                 sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                // Execute SonarQube analysis with a SonarQube environment
+                // Executing SonarQube analysis with a SonarQube environment
                 withSonarQubeEnv('SonarQube') {
                     script {
    
@@ -40,9 +40,6 @@ pipeline {
         }
         failure {
             echo 'Build failed'
-        }
-        always {
-            cleanWs()  // Clean workspace after build
         }
     }
 }
