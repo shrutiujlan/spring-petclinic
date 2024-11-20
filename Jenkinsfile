@@ -1,8 +1,9 @@
 pipeline {
     agent any
-     environment {
-        // Define credentials ID for Git
-        TESTCONTAINERS_RYUK_DISABLED = 'true'
+    
+    tools {
+        maven 'Maven'
+        jdk 'JDK17'
     }
     
     stages {
