@@ -1,6 +1,10 @@
 pipeline {
     agent any
-
+     environment {
+        // Define credentials ID for Git
+        TESTCONTAINERS_RYUK_DISABLED = 'true'
+    }
+    
     stages {
         stage('Checkout') {
             steps {
