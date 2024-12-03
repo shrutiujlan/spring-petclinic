@@ -1,5 +1,6 @@
 - name: Deploy Pet Clinic Application
   hosts: targets
+  become: yes 
   tasks:
     - name: Run the application
       shell: "java -jar /opt/spring-petclinic-3.3.0-SNAPSHOT.jar &"
