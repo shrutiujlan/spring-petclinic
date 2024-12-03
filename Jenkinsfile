@@ -32,6 +32,16 @@ pipeline {
             }
         }
 
+        stage('Deploy') {
+            steps {
+                script {
+                    // Run the Ansible playbook to deploy the application
+                    sh 'ansible-playbook deploy.yml -i /etc/ansible/hosts'  
+                }
+            }
+        }
+    }
+
     }
 
     post {
