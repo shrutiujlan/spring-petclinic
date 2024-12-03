@@ -5,6 +5,9 @@ pipeline {
         maven 'Maven'
         jdk 'JDK17'
     }
+    environment {
+        ANSIBLE_HOST_KEY_CHECKING = 'False'  // Disable SSH host key checking for testing
+    }
     
     stages {
         stage('Checkout') {
