@@ -1,10 +1,43 @@
 - name: Deploy Pet Clinic Application
   hosts: targets
   tasks:
+    - name: Run the application
+      shell: "java -jar /opt/spring-petclinic-3.3.0-SNAPSHOT.jar &"
+    # Update apt cache
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    # Install OpenJDK 17
+    - name: Install OpenJDK 17
+      apt:
+        name: openjdk-17-jdk
+        state: present
+
+    # Verify Java 17 installation
+    - name: Verify Java 17 installation
+      command: java -version
+      register: java_version
+      changed_when: false
+
+    - name: Print Java version
+      debug:
+        msg: "{{ java_version.stdout }}"
+
+    # Copy the PetClinic application JAR file
     - name: Copying application JAR to Server 2
       copy:
         src: /var/lib/jenkins/workspace/petclinic/target/spring-petclinic-3.3.0-SNAPSHOT.jar
         dest: /opt/spring-petclinic-3.3.0-SNAPSHOT.jar
 
-    - name: Run the application
+    # Run the PetClinic application
+    - name: Run PetClinic JAR file
       shell: "java -jar /opt/spring-petclinic-3.3.0-SNAPSHOT.jar &"
+
+    # Verify the application is running
+    - name: Check if port 8080 is open
+      wait_for:
+        port: 8080
+        delay: 10
+        timeout: 60
+        state: started
