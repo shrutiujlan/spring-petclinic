@@ -40,9 +40,6 @@ pipeline {
                 }
             }
         }
-    }
-
-    }
 
     post {
         success {
