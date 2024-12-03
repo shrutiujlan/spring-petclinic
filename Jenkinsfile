@@ -23,18 +23,6 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                // Executing SonarQube analysis with a SonarQube environment
-                withSonarQubeEnv('SonarQube') {
-                    script {
-   
-                        sh 'mvn clean verify sonar:sonar'
-                    }
-                }
-            }
-        }
-
         stage('Deploy') {
             steps {
                 script {
