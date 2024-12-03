@@ -31,7 +31,7 @@
 
     # Run the PetClinic application
     - name: Run PetClinic JAR file
-      shell: "java -jar /opt/spring-petclinic-3.3.0-SNAPSHOT.jar &"
+      shell: "nohup java -jar /opt/spring-petclinic-3.3.0-SNAPSHOT.jar > /dev/null 2>&1 &"
 
     # Verify the application is running
     - name: Check if PetClinic application is running
