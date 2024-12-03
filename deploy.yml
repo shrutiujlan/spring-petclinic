@@ -36,9 +36,17 @@
       shell: "java -jar /opt/spring-petclinic-3.3.0-SNAPSHOT.jar &"
 
     # Verify the application is running
-    - name: Check if port 8080 is open
-      wait_for:
-        port: 8080
-        delay: 10
-        timeout: 60
-        state: started
+    - name: Use curl to check if the PetClinic application is up
+      command: curl --silent --fail http://localhost:8080 || exit 1
+      register: curl_result
+      ignore_errors: yes
+
+    - name: Fail if the application is not running
+      fail:
+        msg: "PetClinic application is not running!"
+      when: curl_result.rc != 0
+
+    - name: Print the result of the curl command
+      debug:
+        msg: "PetClinic application is running!"
+      when: curl_result.rc == 0
