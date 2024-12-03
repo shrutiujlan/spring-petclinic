@@ -1,6 +1,5 @@
 - name: Deploy Pet Clinic Application
   hosts: targets
-  become: yes
   tasks:
     - name: Copying application JAR to Server 2
       copy:
